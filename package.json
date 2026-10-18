@@ -1,0 +1,27 @@
+{
+  "name": "qoroinsight-lock",
+  "private": true,
+  "type": "module",
+  "description": "qoro insight's lock page: write a post and lock it until its open date inside your own browser, with no network. Only the ciphertext ever leaves.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --config lock/vite.config.mts",
+    "build": "vite build --config lock/vite.config.mts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p lock/tsconfig.json",
+    "check-lock": "tsx scripts/check-lock.ts",
+    "preview": "vite preview --config lock/vite.config.mts --port 5176 --strictPort"
+  },
+  "dependencies": {
+    "buffer": "6.0.3",
+    "quill": "2.0.3",
+    "tlock-js": "0.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "tsx": "4.23.12",
+    "typescript": "5.9.3",
+    "vite": "7.3.6",
+    "vitest": "3.2.7"
+  }
+}

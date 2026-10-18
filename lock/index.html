@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="referrer" content="no-referrer" />
+    <title>qoro insight 잠금 페이지 — lock page</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="brand">
+        <strong>qoro insight</strong>
+        <span class="muted"><span class="ko">잠금 페이지</span><span class="en">lock page</span></span>
+        <button type="button" id="lang" class="pill" aria-label="Language">EN</button>
+      </header>
+
+      <section class="card">
+        <p class="lead">
+          <span class="ko">여기서 쓴 글은 <b>이 브라우저 안에서만</b> 공개일까지 잠깁니다. 이 페이지는 네트워크를 전혀 쓰지 않습니다 —
+            글이 어디로도 나가지 않는다는 것을 브라우저가 보장합니다(Content-Security-Policy <code>connect-src 'none'</code>).
+            나오는 것은 잠금 파일 하나이고, 그 안에는 암호문과 drand 잠금뿐입니다. 복호화 키는 공개일의 drand 서명 안에만 있어서
+            qoro insight 도 공개일 전에는 열 수 없습니다.</span>
+          <span class="en">What you write here is locked until its open date <b>inside this browser only</b>. This page uses no network at all —
+            the browser guarantees your writing can't go anywhere (Content-Security-Policy <code>connect-src 'none'</code>). The only output
+            is one lock file containing the ciphertext and a drand lock. The decryption key exists only inside the open date's drand
+            signature, so not even qoro insight can open it before then.</span>
+        </p>
+      </section>
+
+      <section class="card" id="form">
+        <label class="field">
+          <span class="label"><span class="ko">제목 (공개)</span><span class="en">Title (public)</span></span>
+          <input id="title" maxlength="120" autocomplete="off" />
+          <span class="hint"><span class="ko">제목은 발행하면 원장에 남습니다. 비밀이나 개인정보를 넣지 마세요.</span><span class="en">The title stays on the ledger once published. Don't put secrets or personal information in it.</span></span>
+        </label>
+        <label class="field">
+          <span class="label"><span class="ko">무료 미리보기 (공개)</span><span class="en">Free preview (public)</span></span>
+          <textarea id="preview" rows="3" maxlength="1000"></textarea>
+        </label>
+        <label class="field">
+          <span class="label"><span class="ko">공개일</span><span class="en">Open date</span></span>
+          <input id="open" type="date" />
+          <span class="hint"><span class="ko">최소 6일 뒤, 최대 3년 뒤. 그날이 오면 누구나 무료로 읽고, 72시간 뒤 영구 보관됩니다. 그 전에는 작성자도 운영자도 열 수 없습니다.</span><span class="en">At least 6 days and at most 3 years away. On that day anyone can read it for free, and it's archived permanently 72 hours later. Before then neither you nor the operator can open it.</span></span>
+        </label>
+        <div class="field">
+          <span class="label"><span class="ko">본문</span><span class="en">Body</span></span>
+          <div id="editor"></div>
+          <span class="hint mono" id="meter"></span>
+        </div>
+        <label class="check">
+          <input type="checkbox" id="ack" />
+          <span><span class="ko">공개일 전에는 저를 포함해 누구도 이 글을 열 수 없고, 원본은 잠글 때 내려받는 파일뿐이라는 것을 이해했습니다.</span><span class="en">I understand that before the open date no one, including me, can open this post, and that the only original is the file I download when locking.</span></span>
+        </label>
+        <div class="row">
+          <button type="button" id="seal" class="btn" disabled><span class="ko">잠그고 파일 받기</span><span class="en">Lock and download</span></button>
+          <button type="button" id="reset" class="link"><span class="ko">새로 쓰기</span><span class="en">Start over</span></button>
+        </div>
+        <p id="status" class="status" aria-live="polite"></p>
+      </section>
+
+      <section class="card" id="done" hidden></section>
+
+      <footer class="muted small">
+        <span class="ko">이 페이지의 코드:</span><span class="en">This page's code:</span>
+        <a id="source" rel="noopener noreferrer"></a> · <span class="ko">빌드</span><span class="en">build</span> <code id="commit"></code>
+      </footer>
+    </main>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
